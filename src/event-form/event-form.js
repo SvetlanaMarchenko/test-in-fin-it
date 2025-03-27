@@ -1,31 +1,47 @@
 import './event-form.css'; 
-import React from 'react';
-import { Box, Paper, Stack } from '@mui/material';
-import { useTheme } from '@mui/material/styles'; 
+import React, { useState } from 'react';
+import { Box, Stack, TextField } from '@mui/material';
 
 export default function EventForm() {
-  const theme = useTheme();
-  const themeClass = theme.palette.mode === 'dark' ? 'dark-theme' : 'light-theme';
+  const [position, setPosition] = useState('');
+
+  const handlePositionChange = (event) => {
+    setPosition(event.target.value);
+  };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box >
       <Stack spacing={2}>
       
-        <div className={`event-item ${themeClass}`}>
-          <p> Должность</p>
-          <Paper className="event-form">
-            Не указано
-          </Paper>
+        <div className="event-item">
+          <p className="event">Должность</p>
+            <TextField
+              className="event-form"
+              value={position} 
+              onChange={handlePositionChange} 
+              label="Не указано"
+            />
         </div>
 
-        
-        <Paper className={`event-item ${themeClass}`}>
-          Item 2
-        </Paper>
-        <Paper className={`event-item ${themeClass}`}>
-          Item 3
-        </Paper>
+        <div className={`event-item`}>
+          <p className="event">Отдел</p>
+            <TextField
+              className="event-form"
+              value={position}
+              onChange={handlePositionChange} 
+              label="Не указано"
+            />
+        </div>
+        <div className={`event-item`}>
+          <p className="event">Компания</p>
+            <TextField
+              className="event-form"
+              value={position} 
+              onChange={handlePositionChange} 
+              label="Не указано"
+            />
+        </div>
       </Stack>
     </Box>
   );
-}
+} 

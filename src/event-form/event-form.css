@@ -1,26 +1,16 @@
-:root {
-  --light-background: #fff;
-  --dark-background: #1A2027;
-  --light-color: #000;
-  --dark-color: #fff;
-}
 
 .event-item {
-  text-align: center;
   display: flex;
-}
-
-.light-theme {
-  background-color: var(--light-background);
-}
-
-.dark-theme {
-  background-color: var(--dark-background);
-  color: var(--dark-color);
+  height: 40px;
+  width: 100%;
 }
 
 .event-form{
   width: 90%;
-  color: var(--light-color);
-  text-align: center;
+  height: 40px;
 }
+
+.event{
+  width: 125px;
+}
+

@@ -1,16 +1,10 @@
-.App {
-  text-align: center;
-}
 
-.App-header {
+
+.app-header {
   background-color: whitesmoke;
   min-height: 100vh;
   /* font-size: calc(10px + 2vmin); */
   color: 333333;
   display: flex;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
