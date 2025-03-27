@@ -2,46 +2,42 @@ import './event-form.css';
 import React, { useState } from 'react';
 import { Box, Stack, TextField } from '@mui/material';
 
-export default function EventForm() {
-  const [position, setPosition] = useState('');
+const fields = [
+  { label: 'Должность', valueKey: 'position' },
+  { label: 'Отдел', valueKey: 'department' },
+  { label: 'Компания', valueKey: 'company' },
+];
 
-  const handlePositionChange = (event) => {
-    setPosition(event.target.value);
+export default function EventForm() {
+  const [formData, setFormData] = useState({
+    position: '',
+    department: '',
+    company: '',
+  });
+
+  const handleChange = (event, key) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [key]: event.target.value,
+    }));
   };
 
   return (
-    <Box >
+    <Box>
       <Stack spacing={2}>
-      
-        <div className="event-item">
-          <p className="event">Должность</p>
+        {fields.map(({ label, valueKey }) => (
+          <div className="event-item" key={valueKey}>
+            <p className="event">{label}</p>
             <TextField
               className="event-form"
-              value={position} 
-              onChange={handlePositionChange} 
-              label="Не указано"
+              value={formData[valueKey]}
+              onChange={(e) => handleChange(e, valueKey)}
+              placeholder="Не указано"
+              fullWidth
             />
-        </div>
-
-        <div className={`event-item`}>
-          <p className="event">Отдел</p>
-            <TextField
-              className="event-form"
-              value={position}
-              onChange={handlePositionChange} 
-              label="Не указано"
-            />
-        </div>
-        <div className={`event-item`}>
-          <p className="event">Компания</p>
-            <TextField
-              className="event-form"
-              value={position} 
-              onChange={handlePositionChange} 
-              label="Не указано"
-            />
-        </div>
+          </div>
+        ))}
       </Stack>
     </Box>
   );
-} 
+}
