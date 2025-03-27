@@ -21,8 +21,8 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "react",
-        "import"
+        "react"
+        // "import"
     ],
     "extends": [
         "eslint:recommended",

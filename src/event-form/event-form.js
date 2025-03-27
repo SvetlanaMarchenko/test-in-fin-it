@@ -1,25 +1,31 @@
-// import logo from './logo.svg';
-// import './event-form.css';
+import './event-form.css'; 
+import React from 'react';
+import { Box, Paper, Stack } from '@mui/material';
+import { useTheme } from '@mui/material/styles'; 
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+export default function EventForm() {
+  const theme = useTheme();
+  const themeClass = theme.palette.mode === 'dark' ? 'dark-theme' : 'light-theme';
 
-// export default App;
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Stack spacing={2}>
+      
+        <div className={`event-item ${themeClass}`}>
+          <p> Должность</p>
+          <Paper className="event-form">
+            Не указано
+          </Paper>
+        </div>
+
+        
+        <Paper className={`event-item ${themeClass}`}>
+          Item 2
+        </Paper>
+        <Paper className={`event-item ${themeClass}`}>
+          Item 3
+        </Paper>
+      </Stack>
+    </Box>
+  );
+}
