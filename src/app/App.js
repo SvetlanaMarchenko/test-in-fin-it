@@ -7,7 +7,7 @@ function App() {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleItemClick = (item) => {
-    setSelectedItem(item);
+    setSelectedItem(`${item.first_name} ${item.last_name}`);
   };
 
   return (

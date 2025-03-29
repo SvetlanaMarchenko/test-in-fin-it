@@ -6,7 +6,7 @@ function DataList({ onItemClick }) {
   const [data, setData] = useState([]);  
 
   useEffect(() => {
-    fetch('http://localhost/1')
+    fetch('http://localhost:3002/users')
       .then((response) => response.json())  
       .then((data) => setData(data))  
       .catch((error) => console.error('Error fetching data:', error));
