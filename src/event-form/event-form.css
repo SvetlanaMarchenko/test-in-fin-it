@@ -1,16 +1,45 @@
-
 .event-item {
   display: flex;
   height: 40px;
-  width: 100%;
-}
-
-.event-form{
-  width: 90%;
-  height: 40px;
+  width: 60vw;
 }
 
 .event{
   width: 125px;
 }
 
+.event-box{
+  display: flex;
+}
+
+.selectedItem{
+  border: 1px solid blue;
+  padding-left: 20px;
+  margin-left: 20px;
+  height: 30px;
+  width: 300px;
+  background-color: azure;
+  display: flex;
+  align-items: center;
+}
+
+.selectedArea{
+  background-color: azure;
+  height: 40px;
+  width: 75vw;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.infoBlock{
+  display: flex;
+  align-items: center;
+  margin: 40px;
+  justify-content: space-between
+}
+
+.avatarStyle {
+  width: 100px;
+  height: 100px;
+}
