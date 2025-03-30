@@ -7,14 +7,14 @@ function App() {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleItemClick = (item) => {
-    setSelectedItem(`${item.first_name} ${item.last_name}`);
+    setSelectedItem(item);
   };
 
   return (
     <div className="app">
       <header className="app-header">
         <DataList onItemClick={handleItemClick} />
-        <EventForm selectedItem={selectedItem} />
+        <EventForm selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
       </header>
     </div>
   );

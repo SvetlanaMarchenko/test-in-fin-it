@@ -4,14 +4,14 @@ import { Box, Stack, TextField } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 
 const fields = [
-  { label: 'Должность', valueKey: 'position' },
+  { label: 'Должность', valueKey: 'jobTitle' },
   { label: 'Отдел', valueKey: 'department' },
   { label: 'Компания', valueKey: 'company' },
 ];
 
 export default function EventForm({selectedItem}) {
-  const [formData, setFormData] = useState({
-    position: '',
+  const [ setFormData] = useState({
+    jobTitle: '',
     department: '',
     company: '',
   });
@@ -27,7 +27,7 @@ export default function EventForm({selectedItem}) {
     <Box>
       <div className="selectedArea">
         <Box component="section" className="selectedItem">
-          {selectedItem ? ` ${selectedItem}` : 'Выберите элемент из списка'}
+          {selectedItem ? `${selectedItem.first_name} ${selectedItem.last_name}` : 'Выберите элемент из списка'}
         </Box>
       </div>
 
@@ -38,7 +38,7 @@ export default function EventForm({selectedItem}) {
             <div className="event-item" key={valueKey}>
               <p className="event">{label}</p>
               <TextField
-                value={formData[valueKey]}
+                value={selectedItem?.[valueKey] || ''}
                 onChange={(e) => handleChange(e, valueKey)}
                 placeholder="Не указано"
                 fullWidth
