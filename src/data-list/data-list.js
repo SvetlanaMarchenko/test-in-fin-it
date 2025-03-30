@@ -1,26 +1,51 @@
 import './data-list.css';
-import React, { useState, useEffect, useCallback } from 'react';  
-import { List, ListItem, ListItemText, Button } from '@mui/material';
+import React, { useState, useEffect, useRef } from 'react';  
+import { List, ListItem, ListItemText } from '@mui/material';
 
-function DataList({ onItemClick, refreshTrigger }) {
+function DataList({ onItemClick }) {
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const loadingRef = useRef(false);
+  const observerTarget = useRef(null);
 
-  const fetchData = useCallback(() => {
-    fetch(`http://localhost:3002/users?_page=${page}&_limit=10`)
-      .then((response) => {
-        const total = Number(response.headers.get('X-Total-Count'))
-        setTotalPages(Math.ceil(total / 10))
-        return response.json();
+  const appendPage = () => {
+    // console.log("appendPage. Current data is ", data)
+    if (loadingRef.current) return;
+    
+    loadingRef.current = true;
+    fetch(`http://localhost:3002/users?_start=${data.length}&_limit=10`)
+      .then((response) => response.json())
+      .then((freshlyFetchedData) => {
+        setData(prevData => {
+          // console.log("Fetched: prevData: ", prevData)
+          // console.log("Fetched: freshlyFetchedData: ", freshlyFetchedData)
+          return [...prevData, ...freshlyFetchedData]
+        }); 
+        loadingRef.current = false;
       })
-      .then((data) => setData(data))
-      .catch((error) => console.error('Ошибка при загрузке данных:', error))
-  }, [page]);
+      .catch((error) => {
+        console.error('Ошибка при загрузке данных:', error);
+        loadingRef.current = false;
+      });
+  };
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData, refreshTrigger]);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          appendPage()
+        }
+      },
+      { threshold: 1 }
+    );
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+    return () => {
+      if (observerTarget.current) {
+        observer.unobserve(observerTarget.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="data-list">
@@ -30,27 +55,12 @@ function DataList({ onItemClick, refreshTrigger }) {
             <ListItemText primary={`${item.first_name} ${item.last_name}`} />
           </ListItem>
         ))}
+          <div id="observerElem" ref={observerTarget} style={{backgroundColor:"lightyellow", height: "40px"}}>
+            Loading..
+          </div>
       </List>
 
-      <div className="pagination-buttons">
-        <Button
-          variant="outlined"
-          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          disabled={page === 1}
-        >
-          &lt;&lt;
-        </Button>
-
-        <span>Страница {page} из {totalPages}</span>
-
-        <Button
-          variant="outlined"
-          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-          disabled={page >= totalPages}
-        >
-          &gt;&gt;
-        </Button>
-      </div>
+      
     </div>
   );
 }
