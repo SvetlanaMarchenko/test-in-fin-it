@@ -94,16 +94,15 @@ export default function EventForm({ selectedItem, setSelectedItem, onUpdate }) {
               />
             </div>
           ))}
-          {isChanged && (
             <Stack direction="row" spacing={4} sx={{ mt: 4 }}>
-              <Button variant="outlined" onClick={handleCancel} color="default">
+              <Button variant="outlined" onClick={handleCancel} color="default"  disabled={!isChanged}>
                 Отмена
               </Button>
-              <Button variant="outlined" color="primary" onClick={handleUpdate}>
+              <Button variant="outlined" color="primary" onClick={handleUpdate} disabled={!isChanged}>
                 Сохранить
               </Button>
             </Stack>
-          )}
+          
         </Stack>
       </Box>
 
