@@ -2,6 +2,7 @@
   display: flex;
   height: 40px;
   width: 60vw;
+  padding-bottom: 10px;
 }
 
 .event{
@@ -36,11 +37,15 @@
   display: flex;
   align-items: center;
   margin: 40px;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .avatarStyle {
   width: 100px;
   height: 100px;
   margin-right: 30px;
+}
+
+.snackbarAria{
+  margin-top: 100px;
 }

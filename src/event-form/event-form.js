@@ -9,7 +9,7 @@ const fields = [
   { label: 'Компания', valueKey: 'company' },
 ];
 
-export default function EventForm({ selectedItem, setSelectedItem }) {
+export default function EventForm({ selectedItem, setSelectedItem, onUpdate }) {
   const [formData, setFormData] = useState({
     jobTitle: '',
     department: '',
@@ -25,6 +25,7 @@ export default function EventForm({ selectedItem, setSelectedItem }) {
         department: selectedItem.department || '',
         company: selectedItem.company || '',
       });
+      setIsChanged(false); 
     }
   }, [selectedItem]);
 
@@ -53,8 +54,10 @@ export default function EventForm({ selectedItem, setSelectedItem }) {
       setSelectedItem((prevItem) => ({ ...prevItem, ...formData }));
       setIsChanged(false);
       setOpenSnackbar(true);
+      if (onUpdate) onUpdate(); 
+
     } catch (error) {
-      console.error('Ошибка:', error);
+      console.error('Ошибка при обновлении:', error);
     }
   };
 
@@ -92,14 +95,14 @@ export default function EventForm({ selectedItem, setSelectedItem }) {
             </div>
           ))}
           {isChanged && (
-            <div>
-              <Button variant="contained" onClick={handleCancel} color="secondary">
+            <Stack direction="row" spacing={4} sx={{ mt: 4 }}>
+              <Button variant="outlined" onClick={handleCancel} color="default">
                 Отмена
               </Button>
-              <Button variant="contained" color="primary" onClick={handleUpdate}>
+              <Button variant="outlined" color="primary" onClick={handleUpdate}>
                 Сохранить
               </Button>
-            </div>
+            </Stack>
           )}
         </Stack>
       </Box>
@@ -108,8 +111,9 @@ export default function EventForm({ selectedItem, setSelectedItem }) {
         open={openSnackbar}
         autoHideDuration={3000}
         onClose={() => setOpenSnackbar(false)}
+        className="snackbarAria"
       >
-        <Alert onClose={() => setOpenSnackbar(false)} >
+        <Alert onClose={() => setOpenSnackbar(false)}>
           Данные успешно обновлены!
         </Alert>
       </Snackbar>

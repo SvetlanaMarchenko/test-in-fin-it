@@ -2,15 +2,20 @@ import './data-list.css';
 import React, { useState, useEffect } from 'react';  
 import { List, ListItem, ListItemText } from '@mui/material';
 
-function DataList({ onItemClick }) {
+function DataList({ onItemClick, refreshTrigger }) {
   const [data, setData] = useState([]);  
 
-  useEffect(() => {
+
+  const fetchData = () => {
     fetch('http://localhost:3002/users')
       .then((response) => response.json())  
       .then((data) => setData(data))  
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []); 
+      .catch((error) => console.error('Ошибка при загрузке данных:', error));
+    };
+
+  useEffect(() => {
+    fetchData()
+  },[fetchData,refreshTrigger])
 
   return (
     <div className="data-list">
@@ -30,3 +35,5 @@ function DataList({ onItemClick }) {
 }
 
 export default DataList;
+
+ 
