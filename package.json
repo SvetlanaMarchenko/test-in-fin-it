@@ -21,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:json-server": "json-server --watch data/db.json --port 3002 --middlewares ./middleware.js --routes data/routes.json"
+    "start:json-server": "json-server --watch data/db.json --port 3002"
   },
   "eslintConfig": {
     "extends": [
