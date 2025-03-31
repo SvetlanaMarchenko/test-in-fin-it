@@ -1,4 +1,4 @@
-Hello!
+Hello! 
 
 To start the frontend, run the following command in the terminal:
 npm start

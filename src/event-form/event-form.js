@@ -49,12 +49,13 @@ export default function EventForm({ selectedItem, setSelectedItem, onUpdate }) {
 
       if (!response.ok) {
         throw new Error('Не удается обновить данные');
-      }
-
-      setSelectedItem((prevItem) => ({ ...prevItem, ...formData }));
+      } 
+      const updatedItem = { ...selectedItem, ...formData };
+      setSelectedItem(updatedItem);
       setIsChanged(false);
       setOpenSnackbar(true);
-      if (onUpdate) onUpdate(); 
+      if (onUpdate) onUpdate(updatedItem);
+      
 
     } catch (error) {
       console.error('Ошибка при обновлении:', error);
